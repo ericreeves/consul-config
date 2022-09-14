@@ -1,0 +1,2307 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$ref": "#/$defs/Config",
+  "$defs": {
+    "ACL": {
+      "properties": {
+        "Enabled": {
+          "type": "boolean"
+        },
+        "TokenReplication": {
+          "type": "boolean"
+        },
+        "PolicyTTL": {
+          "type": "string"
+        },
+        "RoleTTL": {
+          "type": "string"
+        },
+        "TokenTTL": {
+          "type": "string"
+        },
+        "DownPolicy": {
+          "type": "string"
+        },
+        "DefaultPolicy": {
+          "type": "string"
+        },
+        "EnableKeyListPolicy": {
+          "type": "boolean"
+        },
+        "Tokens": {
+          "$ref": "#/$defs/Tokens"
+        },
+        "EnableTokenPersistence": {
+          "type": "boolean"
+        },
+        "MSPDisableBootstrap": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "Enabled",
+        "TokenReplication",
+        "PolicyTTL",
+        "RoleTTL",
+        "TokenTTL",
+        "DownPolicy",
+        "DefaultPolicy",
+        "EnableKeyListPolicy",
+        "Tokens",
+        "EnableTokenPersistence",
+        "MSPDisableBootstrap"
+      ]
+    },
+    "Addresses": {
+      "properties": {
+        "DNS": {
+          "type": "string"
+        },
+        "HTTP": {
+          "type": "string"
+        },
+        "HTTPS": {
+          "type": "string"
+        },
+        "GRPC": {
+          "type": "string"
+        },
+        "GRPCTLS": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "DNS",
+        "HTTP",
+        "HTTPS",
+        "GRPC",
+        "GRPCTLS"
+      ]
+    },
+    "Audit": {
+      "properties": {
+        "Enabled": {
+          "type": "boolean"
+        },
+        "Sinks": {
+          "patternProperties": {
+            ".*": {
+              "$ref": "#/$defs/AuditSink"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "Enabled",
+        "Sinks"
+      ]
+    },
+    "AuditSink": {
+      "properties": {
+        "Type": {
+          "type": "string"
+        },
+        "Format": {
+          "type": "string"
+        },
+        "Path": {
+          "type": "string"
+        },
+        "DeliveryGuarantee": {
+          "type": "string"
+        },
+        "Mode": {
+          "type": "string"
+        },
+        "RotateBytes": {
+          "type": "integer"
+        },
+        "RotateDuration": {
+          "type": "string"
+        },
+        "RotateMaxFiles": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "Type",
+        "Format",
+        "Path",
+        "DeliveryGuarantee",
+        "Mode",
+        "RotateBytes",
+        "RotateDuration",
+        "RotateMaxFiles"
+      ]
+    },
+    "AutoConfigAuthorizationRaw": {
+      "properties": {
+        "Enabled": {
+          "type": "boolean"
+        },
+        "Static": {
+          "$ref": "#/$defs/AutoConfigAuthorizerRaw"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "Enabled",
+        "Static"
+      ]
+    },
+    "AutoConfigAuthorizerRaw": {
+      "properties": {
+        "ClaimAssertions": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "AllowReuse": {
+          "type": "boolean"
+        },
+        "JWTSupportedAlgs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "BoundAudiences": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "ClaimMappings": {
+          "patternProperties": {
+            ".*": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "ListClaimMappings": {
+          "patternProperties": {
+            ".*": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "OIDCDiscoveryURL": {
+          "type": "string"
+        },
+        "OIDCDiscoveryCACert": {
+          "type": "string"
+        },
+        "JWKSURL": {
+          "type": "string"
+        },
+        "JWKSCACert": {
+          "type": "string"
+        },
+        "JWTValidationPubKeys": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "BoundIssuer": {
+          "type": "string"
+        },
+        "ExpirationLeeway": {
+          "type": "string"
+        },
+        "NotBeforeLeeway": {
+          "type": "string"
+        },
+        "ClockSkewLeeway": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "ClaimAssertions",
+        "AllowReuse",
+        "JWTSupportedAlgs",
+        "BoundAudiences",
+        "ClaimMappings",
+        "ListClaimMappings",
+        "OIDCDiscoveryURL",
+        "OIDCDiscoveryCACert",
+        "JWKSURL",
+        "JWKSCACert",
+        "JWTValidationPubKeys",
+        "BoundIssuer",
+        "ExpirationLeeway",
+        "NotBeforeLeeway",
+        "ClockSkewLeeway"
+      ]
+    },
+    "AutoConfigRaw": {
+      "properties": {
+        "Enabled": {
+          "type": "boolean"
+        },
+        "IntroToken": {
+          "type": "string"
+        },
+        "IntroTokenFile": {
+          "type": "string"
+        },
+        "ServerAddresses": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "DNSSANs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "IPSANs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "Authorization": {
+          "$ref": "#/$defs/AutoConfigAuthorizationRaw"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "Enabled",
+        "IntroToken",
+        "IntroTokenFile",
+        "ServerAddresses",
+        "DNSSANs",
+        "IPSANs",
+        "Authorization"
+      ]
+    },
+    "AutoEncrypt": {
+      "properties": {
+        "TLS": {
+          "type": "boolean"
+        },
+        "DNSSAN": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "IPSAN": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "AllowTLS": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "TLS",
+        "DNSSAN",
+        "IPSAN",
+        "AllowTLS"
+      ]
+    },
+    "Autopilot": {
+      "properties": {
+        "CleanupDeadServers": {
+          "type": "boolean"
+        },
+        "LastContactThreshold": {
+          "type": "string"
+        },
+        "MaxTrailingLogs": {
+          "type": "integer"
+        },
+        "MinQuorum": {
+          "type": "integer"
+        },
+        "ServerStabilizationTime": {
+          "type": "string"
+        },
+        "DisableUpgradeMigration": {
+          "type": "boolean"
+        },
+        "RedundancyZoneTag": {
+          "type": "string"
+        },
+        "UpgradeVersionTag": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "CleanupDeadServers",
+        "LastContactThreshold",
+        "MaxTrailingLogs",
+        "MinQuorum",
+        "ServerStabilizationTime",
+        "DisableUpgradeMigration",
+        "RedundancyZoneTag",
+        "UpgradeVersionTag"
+      ]
+    },
+    "Cache": {
+      "properties": {
+        "EntryFetchMaxBurst": {
+          "type": "integer"
+        },
+        "EntryFetchRate": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "EntryFetchMaxBurst",
+        "EntryFetchRate"
+      ]
+    },
+    "CheckDefinition": {
+      "properties": {
+        "ID": {
+          "type": "string"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Notes": {
+          "type": "string"
+        },
+        "ServiceID": {
+          "type": "string"
+        },
+        "Token": {
+          "type": "string"
+        },
+        "Status": {
+          "type": "string"
+        },
+        "ScriptArgs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "HTTP": {
+          "type": "string"
+        },
+        "Header": {
+          "patternProperties": {
+            ".*": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "Method": {
+          "type": "string"
+        },
+        "Body": {
+          "type": "string"
+        },
+        "DisableRedirects": {
+          "type": "boolean"
+        },
+        "OutputMaxSize": {
+          "type": "integer"
+        },
+        "TCP": {
+          "type": "string"
+        },
+        "UDP": {
+          "type": "string"
+        },
+        "Interval": {
+          "type": "string"
+        },
+        "DockerContainerID": {
+          "type": "string"
+        },
+        "Shell": {
+          "type": "string"
+        },
+        "GRPC": {
+          "type": "string"
+        },
+        "GRPCUseTLS": {
+          "type": "boolean"
+        },
+        "TLSServerName": {
+          "type": "string"
+        },
+        "TLSSkipVerify": {
+          "type": "boolean"
+        },
+        "AliasNode": {
+          "type": "string"
+        },
+        "AliasService": {
+          "type": "string"
+        },
+        "Timeout": {
+          "type": "string"
+        },
+        "TTL": {
+          "type": "string"
+        },
+        "H2PING": {
+          "type": "string"
+        },
+        "H2PingUseTLS": {
+          "type": "boolean"
+        },
+        "SuccessBeforePassing": {
+          "type": "integer"
+        },
+        "FailuresBeforeWarning": {
+          "type": "integer"
+        },
+        "FailuresBeforeCritical": {
+          "type": "integer"
+        },
+        "DeregisterCriticalServiceAfter": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "ID",
+        "Name",
+        "Notes",
+        "ServiceID",
+        "Token",
+        "Status",
+        "ScriptArgs",
+        "HTTP",
+        "Header",
+        "Method",
+        "Body",
+        "DisableRedirects",
+        "OutputMaxSize",
+        "TCP",
+        "UDP",
+        "Interval",
+        "DockerContainerID",
+        "Shell",
+        "GRPC",
+        "GRPCUseTLS",
+        "TLSServerName",
+        "TLSSkipVerify",
+        "AliasNode",
+        "AliasService",
+        "Timeout",
+        "TTL",
+        "H2PING",
+        "H2PingUseTLS",
+        "SuccessBeforePassing",
+        "FailuresBeforeWarning",
+        "FailuresBeforeCritical",
+        "DeregisterCriticalServiceAfter"
+      ]
+    },
+    "Config": {
+      "properties": {
+        "ACL": {
+          "$ref": "#/$defs/ACL"
+        },
+        "Addresses": {
+          "$ref": "#/$defs/Addresses"
+        },
+        "AdvertiseAddrLAN": {
+          "type": "string"
+        },
+        "AdvertiseAddrLANIPv4": {
+          "type": "string"
+        },
+        "AdvertiseAddrLANIPv6": {
+          "type": "string"
+        },
+        "AdvertiseAddrWAN": {
+          "type": "string"
+        },
+        "AdvertiseAddrWANIPv4": {
+          "type": "string"
+        },
+        "AdvertiseAddrWANIPv6": {
+          "type": "string"
+        },
+        "AdvertiseReconnectTimeout": {
+          "type": "string"
+        },
+        "AutoConfig": {
+          "$ref": "#/$defs/AutoConfigRaw"
+        },
+        "Autopilot": {
+          "$ref": "#/$defs/Autopilot"
+        },
+        "BindAddr": {
+          "type": "string"
+        },
+        "Bootstrap": {
+          "type": "boolean"
+        },
+        "BootstrapExpect": {
+          "type": "integer"
+        },
+        "Cache": {
+          "$ref": "#/$defs/Cache"
+        },
+        "Check": {
+          "$ref": "#/$defs/CheckDefinition"
+        },
+        "CheckOutputMaxSize": {
+          "type": "integer"
+        },
+        "CheckUpdateInterval": {
+          "type": "string"
+        },
+        "Checks": {
+          "items": {
+            "$ref": "#/$defs/CheckDefinition"
+          },
+          "type": "array"
+        },
+        "ClientAddr": {
+          "type": "string"
+        },
+        "ConfigEntries": {
+          "$ref": "#/$defs/ConfigEntries"
+        },
+        "AutoEncrypt": {
+          "$ref": "#/$defs/AutoEncrypt"
+        },
+        "Connect": {
+          "$ref": "#/$defs/Connect"
+        },
+        "DNS": {
+          "$ref": "#/$defs/DNS"
+        },
+        "DNSDomain": {
+          "type": "string"
+        },
+        "DNSAltDomain": {
+          "type": "string"
+        },
+        "DNSRecursors": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "DataDir": {
+          "type": "string"
+        },
+        "Datacenter": {
+          "type": "string"
+        },
+        "DefaultQueryTime": {
+          "type": "string"
+        },
+        "DisableAnonymousSignature": {
+          "type": "boolean"
+        },
+        "DisableCoordinates": {
+          "type": "boolean"
+        },
+        "DisableHostNodeID": {
+          "type": "boolean"
+        },
+        "DisableHTTPUnprintableCharFilter": {
+          "type": "boolean"
+        },
+        "DisableKeyringFile": {
+          "type": "boolean"
+        },
+        "DisableRemoteExec": {
+          "type": "boolean"
+        },
+        "DisableUpdateCheck": {
+          "type": "boolean"
+        },
+        "DiscardCheckOutput": {
+          "type": "boolean"
+        },
+        "DiscoveryMaxStale": {
+          "type": "string"
+        },
+        "EnableAgentTLSForChecks": {
+          "type": "boolean"
+        },
+        "EnableCentralServiceConfig": {
+          "type": "boolean"
+        },
+        "EnableDebug": {
+          "type": "boolean"
+        },
+        "EnableScriptChecks": {
+          "type": "boolean"
+        },
+        "EnableLocalScriptChecks": {
+          "type": "boolean"
+        },
+        "EnableSyslog": {
+          "type": "boolean"
+        },
+        "EncryptKey": {
+          "type": "string"
+        },
+        "EncryptVerifyIncoming": {
+          "type": "boolean"
+        },
+        "EncryptVerifyOutgoing": {
+          "type": "boolean"
+        },
+        "GossipLAN": {
+          "$ref": "#/$defs/GossipLANConfig"
+        },
+        "GossipWAN": {
+          "$ref": "#/$defs/GossipWANConfig"
+        },
+        "HTTPConfig": {
+          "$ref": "#/$defs/HTTPConfig"
+        },
+        "LeaveOnTerm": {
+          "type": "boolean"
+        },
+        "LicensePath": {
+          "type": "string"
+        },
+        "Limits": {
+          "$ref": "#/$defs/Limits"
+        },
+        "LogLevel": {
+          "type": "string"
+        },
+        "LogJSON": {
+          "type": "boolean"
+        },
+        "LogFile": {
+          "type": "string"
+        },
+        "LogRotateDuration": {
+          "type": "string"
+        },
+        "LogRotateBytes": {
+          "type": "integer"
+        },
+        "LogRotateMaxFiles": {
+          "type": "integer"
+        },
+        "MaxQueryTime": {
+          "type": "string"
+        },
+        "NodeID": {
+          "type": "string"
+        },
+        "NodeMeta": {
+          "patternProperties": {
+            ".*": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "NodeName": {
+          "type": "string"
+        },
+        "Peering": {
+          "$ref": "#/$defs/Peering"
+        },
+        "Performance": {
+          "$ref": "#/$defs/Performance"
+        },
+        "PidFile": {
+          "type": "string"
+        },
+        "Ports": {
+          "$ref": "#/$defs/Ports"
+        },
+        "PrimaryDatacenter": {
+          "type": "string"
+        },
+        "PrimaryGateways": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "PrimaryGatewaysInterval": {
+          "type": "string"
+        },
+        "RPCProtocol": {
+          "type": "integer"
+        },
+        "RaftProtocol": {
+          "type": "integer"
+        },
+        "RaftSnapshotThreshold": {
+          "type": "integer"
+        },
+        "RaftSnapshotInterval": {
+          "type": "string"
+        },
+        "RaftTrailingLogs": {
+          "type": "integer"
+        },
+        "ReconnectTimeoutLAN": {
+          "type": "string"
+        },
+        "ReconnectTimeoutWAN": {
+          "type": "string"
+        },
+        "RejoinAfterLeave": {
+          "type": "boolean"
+        },
+        "AutoReloadConfig": {
+          "type": "boolean"
+        },
+        "RetryJoinIntervalLAN": {
+          "type": "string"
+        },
+        "RetryJoinIntervalWAN": {
+          "type": "string"
+        },
+        "RetryJoinLAN": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "RetryJoinMaxAttemptsLAN": {
+          "type": "integer"
+        },
+        "RetryJoinMaxAttemptsWAN": {
+          "type": "integer"
+        },
+        "RetryJoinWAN": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "SerfAllowedCIDRsLAN": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "SerfAllowedCIDRsWAN": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "SerfBindAddrLAN": {
+          "type": "string"
+        },
+        "SerfBindAddrWAN": {
+          "type": "string"
+        },
+        "ServerMode": {
+          "type": "boolean"
+        },
+        "ServerName": {
+          "type": "string"
+        },
+        "Service": {
+          "$ref": "#/$defs/ServiceDefinition"
+        },
+        "Services": {
+          "items": {
+            "$ref": "#/$defs/ServiceDefinition"
+          },
+          "type": "array"
+        },
+        "SessionTTLMin": {
+          "type": "string"
+        },
+        "SkipLeaveOnInt": {
+          "type": "boolean"
+        },
+        "StartJoinAddrsLAN": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "StartJoinAddrsWAN": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "SyslogFacility": {
+          "type": "string"
+        },
+        "TLS": {
+          "$ref": "#/$defs/TLS"
+        },
+        "TaggedAddresses": {
+          "patternProperties": {
+            ".*": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "Telemetry": {
+          "$ref": "#/$defs/Telemetry"
+        },
+        "TranslateWANAddrs": {
+          "type": "boolean"
+        },
+        "UI": {
+          "type": "boolean"
+        },
+        "UIContentPath": {
+          "type": "string"
+        },
+        "UIDir": {
+          "type": "string"
+        },
+        "UIConfig": {
+          "$ref": "#/$defs/RawUIConfig"
+        },
+        "UnixSocket": {
+          "$ref": "#/$defs/UnixSocket"
+        },
+        "Watches": {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "RPC": {
+          "$ref": "#/$defs/RPC"
+        },
+        "RaftBoltDBConfig": {
+          "$ref": "#/$defs/RaftBoltDBConfig"
+        },
+        "UseStreamingBackend": {
+          "type": "boolean"
+        },
+        "SnapshotAgent": {
+          "type": "object"
+        },
+        "AEInterval": {
+          "type": "string"
+        },
+        "CheckDeregisterIntervalMin": {
+          "type": "string"
+        },
+        "CheckReapInterval": {
+          "type": "string"
+        },
+        "Consul": {
+          "$ref": "#/$defs/Consul"
+        },
+        "Revision": {
+          "type": "string"
+        },
+        "SegmentLimit": {
+          "type": "integer"
+        },
+        "SegmentNameLimit": {
+          "type": "integer"
+        },
+        "SyncCoordinateIntervalMin": {
+          "type": "string"
+        },
+        "SyncCoordinateRateTarget": {
+          "type": "number"
+        },
+        "Version": {
+          "type": "string"
+        },
+        "VersionPrerelease": {
+          "type": "string"
+        },
+        "VersionMetadata": {
+          "type": "string"
+        },
+        "BuildDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Audit": {
+          "$ref": "#/$defs/Audit"
+        },
+        "ReadReplica": {
+          "type": "boolean"
+        },
+        "SegmentName": {
+          "type": "string"
+        },
+        "Segments": {
+          "items": {
+            "$ref": "#/$defs/Segment"
+          },
+          "type": "array"
+        },
+        "Partition": {
+          "type": "string"
+        },
+        "LicensePollBaseTime": {
+          "type": "string"
+        },
+        "LicensePollMaxTime": {
+          "type": "string"
+        },
+        "LicenseUpdateBaseTime": {
+          "type": "string"
+        },
+        "LicenseUpdateMaxTime": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "ACL",
+        "Addresses",
+        "AdvertiseAddrLAN",
+        "AdvertiseAddrLANIPv4",
+        "AdvertiseAddrLANIPv6",
+        "AdvertiseAddrWAN",
+        "AdvertiseAddrWANIPv4",
+        "AdvertiseAddrWANIPv6",
+        "AdvertiseReconnectTimeout",
+        "AutoConfig",
+        "Autopilot",
+        "BindAddr",
+        "Bootstrap",
+        "BootstrapExpect",
+        "Cache",
+        "Check",
+        "CheckOutputMaxSize",
+        "CheckUpdateInterval",
+        "Checks",
+        "ClientAddr",
+        "ConfigEntries",
+        "AutoEncrypt",
+        "Connect",
+        "DNS",
+        "DNSDomain",
+        "DNSAltDomain",
+        "DNSRecursors",
+        "DataDir",
+        "Datacenter",
+        "DefaultQueryTime",
+        "DisableAnonymousSignature",
+        "DisableCoordinates",
+        "DisableHostNodeID",
+        "DisableHTTPUnprintableCharFilter",
+        "DisableKeyringFile",
+        "DisableRemoteExec",
+        "DisableUpdateCheck",
+        "DiscardCheckOutput",
+        "DiscoveryMaxStale",
+        "EnableAgentTLSForChecks",
+        "EnableCentralServiceConfig",
+        "EnableDebug",
+        "EnableScriptChecks",
+        "EnableLocalScriptChecks",
+        "EnableSyslog",
+        "EncryptKey",
+        "EncryptVerifyIncoming",
+        "EncryptVerifyOutgoing",
+        "GossipLAN",
+        "GossipWAN",
+        "HTTPConfig",
+        "LeaveOnTerm",
+        "LicensePath",
+        "Limits",
+        "LogLevel",
+        "LogJSON",
+        "LogFile",
+        "LogRotateDuration",
+        "LogRotateBytes",
+        "LogRotateMaxFiles",
+        "MaxQueryTime",
+        "NodeID",
+        "NodeMeta",
+        "NodeName",
+        "Peering",
+        "Performance",
+        "PidFile",
+        "Ports",
+        "PrimaryDatacenter",
+        "PrimaryGateways",
+        "PrimaryGatewaysInterval",
+        "RPCProtocol",
+        "RaftProtocol",
+        "RaftSnapshotThreshold",
+        "RaftSnapshotInterval",
+        "RaftTrailingLogs",
+        "ReconnectTimeoutLAN",
+        "ReconnectTimeoutWAN",
+        "RejoinAfterLeave",
+        "AutoReloadConfig",
+        "RetryJoinIntervalLAN",
+        "RetryJoinIntervalWAN",
+        "RetryJoinLAN",
+        "RetryJoinMaxAttemptsLAN",
+        "RetryJoinMaxAttemptsWAN",
+        "RetryJoinWAN",
+        "SerfAllowedCIDRsLAN",
+        "SerfAllowedCIDRsWAN",
+        "SerfBindAddrLAN",
+        "SerfBindAddrWAN",
+        "ServerMode",
+        "ServerName",
+        "Service",
+        "Services",
+        "SessionTTLMin",
+        "SkipLeaveOnInt",
+        "StartJoinAddrsLAN",
+        "StartJoinAddrsWAN",
+        "SyslogFacility",
+        "TLS",
+        "TaggedAddresses",
+        "Telemetry",
+        "TranslateWANAddrs",
+        "UI",
+        "UIContentPath",
+        "UIDir",
+        "UIConfig",
+        "UnixSocket",
+        "Watches",
+        "RPC",
+        "RaftBoltDBConfig",
+        "UseStreamingBackend",
+        "SnapshotAgent",
+        "AEInterval",
+        "CheckDeregisterIntervalMin",
+        "CheckReapInterval",
+        "Consul",
+        "Revision",
+        "SegmentLimit",
+        "SegmentNameLimit",
+        "SyncCoordinateIntervalMin",
+        "SyncCoordinateRateTarget",
+        "Version",
+        "VersionPrerelease",
+        "VersionMetadata",
+        "BuildDate",
+        "Audit",
+        "ReadReplica",
+        "SegmentName",
+        "Segments",
+        "Partition",
+        "LicensePollBaseTime",
+        "LicensePollMaxTime",
+        "LicenseUpdateBaseTime",
+        "LicenseUpdateMaxTime"
+      ]
+    },
+    "ConfigEntries": {
+      "properties": {
+        "Bootstrap": {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "Bootstrap"
+      ]
+    },
+    "Connect": {
+      "properties": {
+        "Enabled": {
+          "type": "boolean"
+        },
+        "CAProvider": {
+          "type": "string"
+        },
+        "CAConfig": {
+          "type": "object"
+        },
+        "MeshGatewayWANFederationEnabled": {
+          "type": "boolean"
+        },
+        "EnableServerlessPlugin": {
+          "type": "boolean"
+        },
+        "TestCALeafRootChangeSpread": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "Enabled",
+        "CAProvider",
+        "CAConfig",
+        "MeshGatewayWANFederationEnabled",
+        "EnableServerlessPlugin",
+        "TestCALeafRootChangeSpread"
+      ]
+    },
+    "Consul": {
+      "properties": {
+        "Coordinate": {
+          "properties": {
+            "UpdateBatchSize": {
+              "type": "integer"
+            },
+            "UpdateMaxBatches": {
+              "type": "integer"
+            },
+            "UpdatePeriod": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "UpdateBatchSize",
+            "UpdateMaxBatches",
+            "UpdatePeriod"
+          ]
+        },
+        "Raft": {
+          "properties": {
+            "ElectionTimeout": {
+              "type": "string"
+            },
+            "HeartbeatTimeout": {
+              "type": "string"
+            },
+            "LeaderLeaseTimeout": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "ElectionTimeout",
+            "HeartbeatTimeout",
+            "LeaderLeaseTimeout"
+          ]
+        },
+        "Server": {
+          "properties": {
+            "HealthInterval": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "HealthInterval"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "Coordinate",
+        "Raft",
+        "Server"
+      ]
+    },
+    "DNS": {
+      "properties": {
+        "AllowStale": {
+          "type": "boolean"
+        },
+        "ARecordLimit": {
+          "type": "integer"
+        },
+        "DisableCompression": {
+          "type": "boolean"
+        },
+        "EnableTruncate": {
+          "type": "boolean"
+        },
+        "MaxStale": {
+          "type": "string"
+        },
+        "NodeTTL": {
+          "type": "string"
+        },
+        "OnlyPassing": {
+          "type": "boolean"
+        },
+        "RecursorStrategy": {
+          "type": "string"
+        },
+        "RecursorTimeout": {
+          "type": "string"
+        },
+        "ServiceTTL": {
+          "patternProperties": {
+            ".*": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "UDPAnswerLimit": {
+          "type": "integer"
+        },
+        "NodeMetaTXT": {
+          "type": "boolean"
+        },
+        "SOA": {
+          "$ref": "#/$defs/SOA"
+        },
+        "UseCache": {
+          "type": "boolean"
+        },
+        "CacheMaxAge": {
+          "type": "string"
+        },
+        "PreferNamespace": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "AllowStale",
+        "ARecordLimit",
+        "DisableCompression",
+        "EnableTruncate",
+        "MaxStale",
+        "NodeTTL",
+        "OnlyPassing",
+        "RecursorStrategy",
+        "RecursorTimeout",
+        "ServiceTTL",
+        "UDPAnswerLimit",
+        "NodeMetaTXT",
+        "SOA",
+        "UseCache",
+        "CacheMaxAge",
+        "PreferNamespace"
+      ]
+    },
+    "ExposeConfig": {
+      "properties": {
+        "Checks": {
+          "type": "boolean"
+        },
+        "Port": {
+          "type": "integer"
+        },
+        "Paths": {
+          "items": {
+            "$ref": "#/$defs/ExposePath"
+          },
+          "type": "array"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "Checks",
+        "Port",
+        "Paths"
+      ]
+    },
+    "ExposePath": {
+      "properties": {
+        "ListenerPort": {
+          "type": "integer"
+        },
+        "Path": {
+          "type": "string"
+        },
+        "Protocol": {
+          "type": "string"
+        },
+        "LocalPathPort": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "ListenerPort",
+        "Path",
+        "Protocol",
+        "LocalPathPort"
+      ]
+    },
+    "GossipLANConfig": {
+      "properties": {
+        "GossipNodes": {
+          "type": "integer"
+        },
+        "GossipInterval": {
+          "type": "string"
+        },
+        "ProbeInterval": {
+          "type": "string"
+        },
+        "ProbeTimeout": {
+          "type": "string"
+        },
+        "SuspicionMult": {
+          "type": "integer"
+        },
+        "RetransmitMult": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "GossipNodes",
+        "GossipInterval",
+        "ProbeInterval",
+        "ProbeTimeout",
+        "SuspicionMult",
+        "RetransmitMult"
+      ]
+    },
+    "GossipWANConfig": {
+      "properties": {
+        "GossipNodes": {
+          "type": "integer"
+        },
+        "GossipInterval": {
+          "type": "string"
+        },
+        "ProbeInterval": {
+          "type": "string"
+        },
+        "ProbeTimeout": {
+          "type": "string"
+        },
+        "SuspicionMult": {
+          "type": "integer"
+        },
+        "RetransmitMult": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "GossipNodes",
+        "GossipInterval",
+        "ProbeInterval",
+        "ProbeTimeout",
+        "SuspicionMult",
+        "RetransmitMult"
+      ]
+    },
+    "HTTPConfig": {
+      "properties": {
+        "BlockEndpoints": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "AllowWriteHTTPFrom": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "ResponseHeaders": {
+          "patternProperties": {
+            ".*": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "UseCache": {
+          "type": "boolean"
+        },
+        "MaxHeaderBytes": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "BlockEndpoints",
+        "AllowWriteHTTPFrom",
+        "ResponseHeaders",
+        "UseCache",
+        "MaxHeaderBytes"
+      ]
+    },
+    "Limits": {
+      "properties": {
+        "HTTPMaxConnsPerClient": {
+          "type": "integer"
+        },
+        "HTTPSHandshakeTimeout": {
+          "type": "string"
+        },
+        "RPCHandshakeTimeout": {
+          "type": "string"
+        },
+        "RPCMaxBurst": {
+          "type": "integer"
+        },
+        "RPCMaxConnsPerClient": {
+          "type": "integer"
+        },
+        "RPCRate": {
+          "type": "number"
+        },
+        "KVMaxValueSize": {
+          "type": "integer"
+        },
+        "TxnMaxReqLen": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "HTTPMaxConnsPerClient",
+        "HTTPSHandshakeTimeout",
+        "RPCHandshakeTimeout",
+        "RPCMaxBurst",
+        "RPCMaxConnsPerClient",
+        "RPCRate",
+        "KVMaxValueSize",
+        "TxnMaxReqLen"
+      ]
+    },
+    "MeshGatewayConfig": {
+      "properties": {
+        "Mode": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "Mode"
+      ]
+    },
+    "Peering": {
+      "properties": {
+        "Enabled": {
+          "type": "boolean"
+        },
+        "TestAllowPeerRegistrations": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "Enabled",
+        "TestAllowPeerRegistrations"
+      ]
+    },
+    "Performance": {
+      "properties": {
+        "LeaveDrainTime": {
+          "type": "string"
+        },
+        "RaftMultiplier": {
+          "type": "integer"
+        },
+        "RPCHoldTimeout": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "LeaveDrainTime",
+        "RaftMultiplier",
+        "RPCHoldTimeout"
+      ]
+    },
+    "Ports": {
+      "properties": {
+        "DNS": {
+          "type": "integer"
+        },
+        "HTTP": {
+          "type": "integer"
+        },
+        "HTTPS": {
+          "type": "integer"
+        },
+        "SerfLAN": {
+          "type": "integer"
+        },
+        "SerfWAN": {
+          "type": "integer"
+        },
+        "Server": {
+          "type": "integer"
+        },
+        "GRPC": {
+          "type": "integer"
+        },
+        "GRPCTLS": {
+          "type": "integer"
+        },
+        "ProxyMinPort": {
+          "type": "integer"
+        },
+        "ProxyMaxPort": {
+          "type": "integer"
+        },
+        "SidecarMinPort": {
+          "type": "integer"
+        },
+        "SidecarMaxPort": {
+          "type": "integer"
+        },
+        "ExposeMinPort": {
+          "type": "integer"
+        },
+        "ExposeMaxPort": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "DNS",
+        "HTTP",
+        "HTTPS",
+        "SerfLAN",
+        "SerfWAN",
+        "Server",
+        "GRPC",
+        "GRPCTLS",
+        "ProxyMinPort",
+        "ProxyMaxPort",
+        "SidecarMinPort",
+        "SidecarMaxPort",
+        "ExposeMinPort",
+        "ExposeMaxPort"
+      ]
+    },
+    "RPC": {
+      "properties": {
+        "EnableStreaming": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "EnableStreaming"
+      ]
+    },
+    "RaftBoltDBConfig": {
+      "properties": {
+        "NoFreelistSync": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "NoFreelistSync"
+      ]
+    },
+    "RawUIConfig": {
+      "properties": {
+        "Enabled": {
+          "type": "boolean"
+        },
+        "Dir": {
+          "type": "string"
+        },
+        "ContentPath": {
+          "type": "string"
+        },
+        "MetricsProvider": {
+          "type": "string"
+        },
+        "MetricsProviderFiles": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "MetricsProviderOptionsJSON": {
+          "type": "string"
+        },
+        "MetricsProxy": {
+          "$ref": "#/$defs/RawUIMetricsProxy"
+        },
+        "DashboardURLTemplates": {
+          "patternProperties": {
+            ".*": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "Enabled",
+        "Dir",
+        "ContentPath",
+        "MetricsProvider",
+        "MetricsProviderFiles",
+        "MetricsProviderOptionsJSON",
+        "MetricsProxy",
+        "DashboardURLTemplates"
+      ]
+    },
+    "RawUIMetricsProxy": {
+      "properties": {
+        "BaseURL": {
+          "type": "string"
+        },
+        "AddHeaders": {
+          "items": {
+            "$ref": "#/$defs/RawUIMetricsProxyAddHeader"
+          },
+          "type": "array"
+        },
+        "PathAllowlist": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "BaseURL",
+        "AddHeaders",
+        "PathAllowlist"
+      ]
+    },
+    "RawUIMetricsProxyAddHeader": {
+      "properties": {
+        "Name": {
+          "type": "string"
+        },
+        "Value": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "Name",
+        "Value"
+      ]
+    },
+    "SOA": {
+      "properties": {
+        "Refresh": {
+          "type": "integer"
+        },
+        "Retry": {
+          "type": "integer"
+        },
+        "Expire": {
+          "type": "integer"
+        },
+        "Minttl": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "Refresh",
+        "Retry",
+        "Expire",
+        "Minttl"
+      ]
+    },
+    "Segment": {
+      "properties": {
+        "Advertise": {
+          "type": "string"
+        },
+        "Bind": {
+          "type": "string"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Port": {
+          "type": "integer"
+        },
+        "RPCListener": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "Advertise",
+        "Bind",
+        "Name",
+        "Port",
+        "RPCListener"
+      ]
+    },
+    "ServiceAddress": {
+      "properties": {
+        "Address": {
+          "type": "string"
+        },
+        "Port": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "Address",
+        "Port"
+      ]
+    },
+    "ServiceConnect": {
+      "properties": {
+        "Native": {
+          "type": "boolean"
+        },
+        "SidecarService": {
+          "$ref": "#/$defs/ServiceDefinition"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "Native",
+        "SidecarService"
+      ]
+    },
+    "ServiceDefinition": {
+      "properties": {
+        "Kind": {
+          "type": "string"
+        },
+        "ID": {
+          "type": "string"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Tags": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "Address": {
+          "type": "string"
+        },
+        "TaggedAddresses": {
+          "patternProperties": {
+            ".*": {
+              "$ref": "#/$defs/ServiceAddress"
+            }
+          },
+          "type": "object"
+        },
+        "Meta": {
+          "patternProperties": {
+            ".*": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "Port": {
+          "type": "integer"
+        },
+        "SocketPath": {
+          "type": "string"
+        },
+        "Check": {
+          "$ref": "#/$defs/CheckDefinition"
+        },
+        "Checks": {
+          "items": {
+            "$ref": "#/$defs/CheckDefinition"
+          },
+          "type": "array"
+        },
+        "Token": {
+          "type": "string"
+        },
+        "Weights": {
+          "$ref": "#/$defs/ServiceWeights"
+        },
+        "EnableTagOverride": {
+          "type": "boolean"
+        },
+        "Proxy": {
+          "$ref": "#/$defs/ServiceProxy"
+        },
+        "Connect": {
+          "$ref": "#/$defs/ServiceConnect"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "Kind",
+        "ID",
+        "Name",
+        "Tags",
+        "Address",
+        "TaggedAddresses",
+        "Meta",
+        "Port",
+        "SocketPath",
+        "Check",
+        "Checks",
+        "Token",
+        "Weights",
+        "EnableTagOverride",
+        "Proxy",
+        "Connect"
+      ]
+    },
+    "ServiceProviderToken": {
+      "properties": {
+        "AccessorID": {
+          "type": "string"
+        },
+        "SecretID": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "AccessorID",
+        "SecretID"
+      ]
+    },
+    "ServiceProxy": {
+      "properties": {
+        "DestinationServiceName": {
+          "type": "string"
+        },
+        "DestinationServiceID": {
+          "type": "string"
+        },
+        "LocalServiceAddress": {
+          "type": "string"
+        },
+        "LocalServicePort": {
+          "type": "integer"
+        },
+        "LocalServiceSocketPath": {
+          "type": "string"
+        },
+        "TransparentProxy": {
+          "$ref": "#/$defs/TransparentProxyConfig"
+        },
+        "Mode": {
+          "type": "string"
+        },
+        "Config": {
+          "type": "object"
+        },
+        "Upstreams": {
+          "items": {
+            "$ref": "#/$defs/Upstream"
+          },
+          "type": "array"
+        },
+        "MeshGateway": {
+          "$ref": "#/$defs/MeshGatewayConfig"
+        },
+        "Expose": {
+          "$ref": "#/$defs/ExposeConfig"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "DestinationServiceName",
+        "DestinationServiceID",
+        "LocalServiceAddress",
+        "LocalServicePort",
+        "LocalServiceSocketPath",
+        "TransparentProxy",
+        "Mode",
+        "Config",
+        "Upstreams",
+        "MeshGateway",
+        "Expose"
+      ]
+    },
+    "ServiceWeights": {
+      "properties": {
+        "Passing": {
+          "type": "integer"
+        },
+        "Warning": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "Passing",
+        "Warning"
+      ]
+    },
+    "TLS": {
+      "properties": {
+        "Defaults": {
+          "$ref": "#/$defs/TLSProtocolConfig"
+        },
+        "InternalRPC": {
+          "$ref": "#/$defs/TLSProtocolConfig"
+        },
+        "HTTPS": {
+          "$ref": "#/$defs/TLSProtocolConfig"
+        },
+        "GRPC": {
+          "$ref": "#/$defs/TLSProtocolConfig"
+        },
+        "GRPCModifiedByDeprecatedConfig": {
+          "properties": {},
+          "additionalProperties": false,
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "Defaults",
+        "InternalRPC",
+        "HTTPS",
+        "GRPC",
+        "GRPCModifiedByDeprecatedConfig"
+      ]
+    },
+    "TLSProtocolConfig": {
+      "properties": {
+        "CAFile": {
+          "type": "string"
+        },
+        "CAPath": {
+          "type": "string"
+        },
+        "CertFile": {
+          "type": "string"
+        },
+        "KeyFile": {
+          "type": "string"
+        },
+        "TLSMinVersion": {
+          "type": "string"
+        },
+        "TLSCipherSuites": {
+          "type": "string"
+        },
+        "VerifyIncoming": {
+          "type": "boolean"
+        },
+        "VerifyOutgoing": {
+          "type": "boolean"
+        },
+        "VerifyServerHostname": {
+          "type": "boolean"
+        },
+        "UseAutoCert": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "CAFile",
+        "CAPath",
+        "CertFile",
+        "KeyFile",
+        "TLSMinVersion",
+        "TLSCipherSuites",
+        "VerifyIncoming",
+        "VerifyOutgoing",
+        "VerifyServerHostname",
+        "UseAutoCert"
+      ]
+    },
+    "Telemetry": {
+      "properties": {
+        "CirconusAPIApp": {
+          "type": "string"
+        },
+        "CirconusAPIToken": {
+          "type": "string"
+        },
+        "CirconusAPIURL": {
+          "type": "string"
+        },
+        "CirconusBrokerID": {
+          "type": "string"
+        },
+        "CirconusBrokerSelectTag": {
+          "type": "string"
+        },
+        "CirconusCheckDisplayName": {
+          "type": "string"
+        },
+        "CirconusCheckForceMetricActivation": {
+          "type": "string"
+        },
+        "CirconusCheckID": {
+          "type": "string"
+        },
+        "CirconusCheckInstanceID": {
+          "type": "string"
+        },
+        "CirconusCheckSearchTag": {
+          "type": "string"
+        },
+        "CirconusCheckTags": {
+          "type": "string"
+        },
+        "CirconusSubmissionInterval": {
+          "type": "string"
+        },
+        "CirconusSubmissionURL": {
+          "type": "string"
+        },
+        "DisableHostname": {
+          "type": "boolean"
+        },
+        "DogstatsdAddr": {
+          "type": "string"
+        },
+        "DogstatsdTags": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "RetryFailedConfiguration": {
+          "type": "boolean"
+        },
+        "FilterDefault": {
+          "type": "boolean"
+        },
+        "PrefixFilter": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "MetricsPrefix": {
+          "type": "string"
+        },
+        "PrometheusRetentionTime": {
+          "type": "string"
+        },
+        "StatsdAddr": {
+          "type": "string"
+        },
+        "StatsiteAddr": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "CirconusAPIApp",
+        "CirconusAPIToken",
+        "CirconusAPIURL",
+        "CirconusBrokerID",
+        "CirconusBrokerSelectTag",
+        "CirconusCheckDisplayName",
+        "CirconusCheckForceMetricActivation",
+        "CirconusCheckID",
+        "CirconusCheckInstanceID",
+        "CirconusCheckSearchTag",
+        "CirconusCheckTags",
+        "CirconusSubmissionInterval",
+        "CirconusSubmissionURL",
+        "DisableHostname",
+        "DogstatsdAddr",
+        "DogstatsdTags",
+        "RetryFailedConfiguration",
+        "FilterDefault",
+        "PrefixFilter",
+        "MetricsPrefix",
+        "PrometheusRetentionTime",
+        "StatsdAddr",
+        "StatsiteAddr"
+      ]
+    },
+    "Tokens": {
+      "properties": {
+        "InitialManagement": {
+          "type": "string"
+        },
+        "Replication": {
+          "type": "string"
+        },
+        "AgentRecovery": {
+          "type": "string"
+        },
+        "Default": {
+          "type": "string"
+        },
+        "Agent": {
+          "type": "string"
+        },
+        "ManagedServiceProvider": {
+          "items": {
+            "$ref": "#/$defs/ServiceProviderToken"
+          },
+          "type": "array"
+        },
+        "Master": {
+          "type": "string"
+        },
+        "AgentMaster": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "InitialManagement",
+        "Replication",
+        "AgentRecovery",
+        "Default",
+        "Agent",
+        "ManagedServiceProvider",
+        "Master",
+        "AgentMaster"
+      ]
+    },
+    "TransparentProxyConfig": {
+      "properties": {
+        "OutboundListenerPort": {
+          "type": "integer"
+        },
+        "DialedDirectly": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "OutboundListenerPort",
+        "DialedDirectly"
+      ]
+    },
+    "UnixSocket": {
+      "properties": {
+        "Group": {
+          "type": "string"
+        },
+        "Mode": {
+          "type": "string"
+        },
+        "User": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "Group",
+        "Mode",
+        "User"
+      ]
+    },
+    "Upstream": {
+      "properties": {
+        "DestinationType": {
+          "type": "string"
+        },
+        "DestinationNamespace": {
+          "type": "string"
+        },
+        "DestinationPartition": {
+          "type": "string"
+        },
+        "DestinationPeer": {
+          "type": "string"
+        },
+        "DestinationName": {
+          "type": "string"
+        },
+        "Datacenter": {
+          "type": "string"
+        },
+        "LocalBindAddress": {
+          "type": "string"
+        },
+        "LocalBindPort": {
+          "type": "integer"
+        },
+        "LocalBindSocketPath": {
+          "type": "string"
+        },
+        "LocalBindSocketMode": {
+          "type": "string"
+        },
+        "Config": {
+          "type": "object"
+        },
+        "MeshGateway": {
+          "$ref": "#/$defs/MeshGatewayConfig"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "DestinationType",
+        "DestinationNamespace",
+        "DestinationPartition",
+        "DestinationPeer",
+        "DestinationName",
+        "Datacenter",
+        "LocalBindAddress",
+        "LocalBindPort",
+        "LocalBindSocketPath",
+        "LocalBindSocketMode",
+        "Config",
+        "MeshGateway"
+      ]
+    }
+  }
+}
